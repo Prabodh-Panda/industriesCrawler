@@ -7,8 +7,12 @@ const categories = JSON.parse(await readFile(new URL('./Companies.json', import.
 let index = 0;
 
 const addDataToDB = async (data) => {
-    await setDoc(doc(db, "companies", data.index.toString()), data);
-    console.log("Added Doc: ", data.index)
+    try{
+        await setDoc(doc(db, "companies", data.index.toString()), data);
+        console.log("Added Doc: ", data.index)
+    } catch {
+        console.log("Skipped Doc: ", data.index)
+    }
 }
 
 categories.forEach(company => {
